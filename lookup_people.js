@@ -1,5 +1,6 @@
 const pg = require("pg");
 const settings = require("./settings"); // settings.json
+const moment = require("moment");
 
 const client = new pg.Client({
   user     : settings.user,
@@ -34,7 +35,8 @@ function printResult (arr) {
   let count = 0;
   for (let people of arr) {
     count += 1;
-    console.log(`- ${count}: ${people.first_name} ${people.last_name}, born ${people.birthdate}`);
+    let bd = moment(people.birthdate).format('YYYY-MM-DD');
+    console.log(`- ${count}: ${people.first_name} ${people.last_name}, born ${bd}`);
   }
 };
 
