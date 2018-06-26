@@ -23,13 +23,18 @@ client.connect((err) => {
     if (err) {
       return console.error("error running query", err);
     }
-    console.log(result.rows); //output: 1
+    printResult(result.rows); //output: 1
     client.end();
   });
 });
 
 function printResult (arr) {
-  for (let nameElement of arr) {
-    console.log(nameElement);
+  let arrLength = arr.length;
+  console.log(`Searching...\n Found ${arrLength} person(s) by the name ${process.argv[2]}:`);
+  let count = 0;
+  for (let people of arr) {
+    count += 1;
+    console.log(`- ${count}: ${people.first_name} ${people.last_name}, born ${people.birthdate}`);
   }
-}
+};
+
